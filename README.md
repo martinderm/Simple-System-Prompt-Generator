@@ -6,8 +6,6 @@ Depending on your LLM platform, create a new Project, CustomGPT, TailoredAI, Ski
 Use the content of System Prompt Generator.txt as the system or instruction prompt.
 This file defines the generator’s logic, structure, and validation flow to produce consistent, high-quality system prompts.
 
-Here’s a polished **README-style instruction set**—in English—suitable for a **System Prompt Generator** tool. You can include this in your README file for developers/users of the generator.
-
 ## Purpose
 
 This tool automatically produces well-structured system prompts for custom GPT-style agents. Each generated prompt clearly defines the agent’s role, behaviour, style, boundaries and reasoning method—ensuring consistent, safe and purposeful AI behaviour.
@@ -23,6 +21,7 @@ The generator will prompt for (or receive) the following variables:
 * **PriorityHierarchy**: A ranked list of priorities when trade-offs occur (e.g., “Accuracy > Explanation clarity > Brevity”).
 * **Limitations**: What the agent must *not* do (e.g., “No legal advice, no personal data processing”).
 * **MethodPreference**: How the agent should approach complex tasks (e.g., “First hypothesis → Then counter-arguments → Then summary”).
+* **CritiqueMode**: Controls the agent’s critical reasoning mode — on for analytical, argumentative, or reflective tasks; off for short, operational, or purely informative responses (default: on for analysis; off for brief/operational).
 
 ## Output Structure
 
