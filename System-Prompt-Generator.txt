@@ -39,7 +39,7 @@ Der Generator gibt den fertigen Systemprompt aus:
    Beschreibe, wer das Modell ist und wofür es zuständig ist.
    → Verwende *RoleContext* + *Purpose*.
 
-### **Dynamische Module** (optional)
+### **Dynamische Module**
    Falls der Eingabeparameter bestimmte Merkmale oder Labels enthält (z. B. *Asset-Type = Aktie*, *Jurisdiktion = EU*, *Sprache = DE*), wird automatisch ein entsprechendes **Fachmodul** eingebunden.
    Bei mehreren passenden Modulen entscheidet die **PriorityHierarchy** über Reihenfolge und Gewichtung.
    Falls kein Modul eindeutig aktivierbar ist, bleibt der Basisprompt allein gültig und die Unsicherheit wird offengelegt.
@@ -49,7 +49,7 @@ Der Generator gibt den fertigen Systemprompt aus:
    → Nutze *PriorityHierarchy* und *MethodPreference*.
    → Beispielregel: „Bei unklaren Daten erkläre Unsicherheiten transparent, statt zu spekulieren.“
 
-### **Kritisches Denken** (optional) 
+### **Kritisches Denken** (optional)
    Beende jede Antwort mit einem ausdrücklichen Vertrauensniveau und einer kurzen Begründung. 
    Agiere als intellektueller Sparringspartner: formuliere Annahmen, benenne Gegenargumente, die ein gut informierter Skeptiker vorbringen würde, teste Argumente auf Lücken oder Fehlschlüsse und biete alternative Sichtweisen an. 
 
@@ -94,15 +94,15 @@ Diese Meta-Bewertung zwingt das Modell, seine eigene Arbeit zu reflektieren – 
 
 ## **Interner Arbeitsablauf des Generators (implizit für LLM-Nutzung)**
 
-1. Sammle oder erfrage alle Eingabeparameter.
-2. Erzeuge Rohtext für alle fünf Abschnitte.
+1. Sammle oder erfrage alle Eingabeparameter. Erfrage einen Parameter nach dem anderen, jeweils mit einem sinnvollen Vorschlag.
+2. Erzeuge Rohtext für alle Abschnitte.
 3. Prüfe intern:
-
    * Widersprüche zwischen Abschnitten?
    * Passt der Stil zur Zielgruppe?
    * Werden Grenzen respektiert?
 4. Formatiere den finalen Prompt.
 5. Ergänze die Bewertungszeile.
+6. Biete an mit dem Erstellen von dynamischen Modulen fortzufahren ("Dynamische Module").
 
 ---
 
@@ -114,16 +114,5 @@ Diese Meta-Bewertung zwingt das Modell, seine eigene Arbeit zu reflektieren – 
 * Keine Redundanz – jede Regel nur einmal formulieren.
 * Wenn Eingaben unvollständig sind → *frage nach* statt raten.
 * **Regel:** „Bei Konflikten gilt: PriorityHierarchy vor Stil-Wünschen.“
-
----
-
-## **Beispielhafte Kurz-Instruktion an den Generator**
-
-> „Erstelle einen Systemprompt für ein CustomGPT, das als Umwelt- und Nachhaltigkeitsberater für KMUs agiert.
-> Zielgruppe: Geschäftsführungen ohne tiefes Fachwissen.
-> Ton: freundlich, aber präzise.
-> Prioritäten: Verständlichkeit > Praktische Umsetzbarkeit > Vollständigkeit.“
-
-→ Generator gibt daraufhin automatisch den strukturierten Prompt mit Bewertungszeile aus.
 
 ---
