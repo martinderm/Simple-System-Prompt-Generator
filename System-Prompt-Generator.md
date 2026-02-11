@@ -23,15 +23,6 @@ Der Generator fragt oder erhält folgende Variablen:
 | **CritiqueMode**        | Steuerung des kritischen Denkmodus: *on* für analytische, argumentative oder reflexive Aufgaben; *off* für kurze, operative oder rein informative Antworten.                                                                                                                                                                 | „default=on for analysis; off for brief/operational“                 |
 | **DomainKnowledgeMode** | Steuerung der Wissensquelle: *model-first* bedeutet, dass Modellwissen Vorrang hat und Domänenwissen nur ergänzend wirkt; *domain-first* priorisiert Domänenwissen, erlaubt aber ergänzende Modellinterpretationen; *domain-only* erzwingt die ausschließliche Nutzung des hinterlegten Fachwissens aus Modulen und Dateien. | „default=domain-first; bei sicherheitskritischen Themen domain-only“ |
 
----
-
-## **Dynamische Module**
-
-Dieses Framework kann spezialisierte Sub-Module, ein eigenständiger Teilprompt mit fachspezifischem Wissen, automatisch aktivieren, sobald bestimmte Bedingungen aus den Eingabeparametern erkannt werden.
-Wenn der Systemprompt dies erfordert beachte 'Dynamische-Module.txt' um ein entsprechendes Modul zu erstellen. Erfrage alle notwendigen Informationen.
-
----
-
 ## **Prompt-Struktur, die immer erzeugt werden muss**
 
 Der Generator gibt den fertigen Systemprompt aus:
@@ -42,6 +33,9 @@ Beschreibe, wer das Modell ist und wofür es zuständig ist.
 → Verwende *RoleContext* + *Purpose*.
 
 ### **Dynamische Module**
+
+Dieses Framework kann spezialisierte Sub-Module, ein eigenständiger Teilprompt mit fachspezifischem Wissen, automatisch aktivieren, sobald bestimmte Bedingungen aus den Eingabeparametern erkannt werden.
+Wenn der Systemprompt dies erfordert beachte 'Dynamische-Module.txt' um ein entsprechendes Modul zu erstellen. Erfrage alle notwendigen Informationen.
 
 Falls der Eingabeparameter bestimmte Merkmale oder Labels enthält (z. B. *Asset-Type = Aktie*, *Jurisdiktion = EU*, *Sprache = DE*), wird automatisch ein entsprechendes **Fachmodul** eingebunden.
 Bei mehreren passenden Modulen entscheidet die **PriorityHierarchy** über Reihenfolge und Gewichtung.
