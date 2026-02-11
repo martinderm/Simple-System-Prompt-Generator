@@ -1,46 +1,87 @@
-# Dynamische Module
+﻿# Dynamische Module
 
-Ein **Modul** ist ein eigenständiger Teilprompt mit fachspezifischem Wissen, Bewertungslogik oder Anweisungen.
+Ein Modul ist ein eigenständiger Teilprompt mit fachspezifischem Wissen, Bewertungslogik oder Anweisungen.
 Ziel ist es, domänenspezifische Expertise einzubetten, ohne die Hauptlogik zu überfrachten.
 Ein Modul erweitert den Basisprompt um spezialisiertes Wissen, Regeln oder Bewertungslogiken, die für den jeweiligen Kontext gelten.
-Empfehle einen kurzen Dateinamen für die Moduldatei um eindeutig zu referenzieren.
+Empfehle einen kurzen Dateinamen für die Moduldatei, damit sie eindeutig referenzierbar ist.
 
-## *Funktionsweise:*
+## Funktionsweise
 
-→ Wenn ein Eingabeparameter ein eindeutiges Label oder Muster enthält (z. B. `Asset-Type = Aktie` oder `Asset-Type = Anleihe`), wird das dazugehörige Modul geladen und mit dem Basisprompt kombiniert.
-→ Jedes Modul enthält ausschließlich rollenrelevante Informationen (z. B. Bewertungskennzahlen, Datenformat, Output-Struktur).
-→ Bei Mehrdeutigkeiten oder Konflikten gelten die Regeln aus *PriorityHierarchy*.
-→ Fehlt ein passendes Modul oder ist die Aktivierungsbedingung unklar, wird ausschließlich der Basisprompt verwendet und die Unsicherheit transparent kommuniziert.
+Ein Modul wird nur dann angewendet, wenn:
 
-## **Beispielhafte Logik:**
+1. ein eindeutiger Trigger in den Eingaben vorliegt (z. B. Asset-Type = Aktie), und
+2. die referenzierte Moduldatei tatsächlich vorhanden ist.
 
-→ Wenn Asset-Type = „Aktie“ → Wende das Bewertungsframework aus *Aktien.txt* an.
-→ Wenn Asset-Type = „Anleihe“ → Wende das Bewertungsframework aus *Anleihen.txt* an.
-→ Wenn Sprache = „DE“ → Nutze deutsche Module für Stil und Fachsprache.
-→ Weitere Module können hinzugefügt werden (z. B. Nachhaltigkeit, Recht, Portfolioanalyse).
+Bei Mehrdeutigkeiten oder Konflikten gelten die Regeln aus PriorityHierarchy.
 
-## **Regeln:**
+Wenn Trigger unklar sind oder kein passendes Modul verfügbar ist:
 
-1. Module müssen eigenständig, kurz (≤ 300 Wörter) und konfliktfrei sein.
-2. Aktivierungslogik und Priorität werden zentral durch *PriorityHierarchy* gesteuert.
-3. Die Ausgabeformate und Sicherheitsgrenzen des Hauptprompts bleiben stets gültig.
+- ausschließlich Basisprompt verwenden,
+- Unsicherheit transparent kommunizieren,
+- fehlendes Modul klar benennen,
+- optional eine gezielte Rückfrage stellen.
 
-## **Domänenwissen**
+---
 
-Dieses Wissen wird in **zusätzlichen Dateien** abgelegt, die im Modul mit einer **kurzen Zusammenfassung** referenziert werden. Dadurch können alle relevanten Fachinformationen modular eingebunden werden, ohne den Hauptprompt zu überladen.
-Bei Bedarf kann der Generator automatisch auf diese Dateien zugreifen, um spezifische Definitionen, Rechenlogiken oder Richtlinien nachzuladen.
+## Beispielhafte Logik
 
-## **Links**
+- Wenn Asset-Type = "Aktie" -> Bewertungsframework aus "Aktien.txt" anwenden.
+- Wenn Asset-Type = "Anleihe" -> Bewertungsframework aus "Anleihen.txt" anwenden.
+- Wenn Sprache = "DE" -> deutsche Module für Stil und Fachsprache nutzen.
+- Weitere Module sind möglich (z. B. Nachhaltigkeit, Recht, Portfolioanalyse).
 
-Wird externes Wissen über eine **URL** referenziert, sollen diese Links im dynamischen Modul mit einer **kurzen Zusammenfassung** hinterlegt werden. Dadurch bleibt nachvollziehbar, welche externen Quellen herangezogen wurden und zu welchem Zweck. Die Zusammenfassung enthält idealerweise Thema, Datum und Relevanz der Quelle.
+---
 
-## **Zusätzliche Überprüfung**
+## Zusammenspiel mit DomainKnowledgeMode
 
-Nachdem der erste Entwurf eines Domänenmoduls generiert wurde, soll automatisch eine **Rückfrage** an den Nutzer erfolgen:
+- model-first: Modellwissen hat Vorrang, Modulwissen wirkt ergänzend.
+- domain-first: Modul-/Dateiwissen hat Vorrang, Modellwissen ergänzt.
+- domain-only: ausschließlich hinterlegtes Modul-/Dateiwissen nutzen.
 
-→ *„Möchtest du eine vertiefte Recherche durchführen, um Spezialfälle oder seltene Ausnahmen abzudecken?“*
+Bei domain-only und fehlender Wissensbasis:
 
-Wenn der Nutzer zustimmt, wird eine **zweite, fokussierte Rechercheschleife** gestartet, die spezifische Randfälle, Ausnahmebedingungen oder seltene Anwendungsbeispiele identifiziert und integriert.
-Dieser iterative Prozess wird **so oft wiederholt**, bis der Nutzer das Modul als vollständig und präzise genug bestätigt.
+- keine fachliche Antwort erzeugen,
+- Quellenlücke offen benennen,
+- benötigte Dateien/Eingaben anfordern.
 
-Ziel dieser Schleife ist es, **Domänentiefe und Robustheit** progressiv zu steigern, ohne unnötige Komplexität einzuführen.
+## Regeln
+
+1. Module müssen eigenständig, kurz und konfliktfrei sein (Richtwert: bis 300 Wörter).
+2. Aktivierungslogik muss klar und prüfbar formuliert sein.
+3. Aktivierungspriorität folgt der PriorityHierarchy.
+4. Ausgabeformat und Sicherheitsgrenzen des Hauptprompts bleiben immer gültig.
+
+## Domänenwissen
+
+Fachwissen wird in zusätzlichen Dateien abgelegt, die im Modul mit einer kurzen Zusammenfassung referenziert werden.
+So bleiben Hauptprompt und Modul schlank, während relevante Fachlogik gezielt nachgeladen werden kann.
+
+## Links
+
+Wenn externes Wissen per URL referenziert wird, hinterlege im Modul eine kurze Zusammenfassung mit:
+
+- Thema,
+- Datum,
+- Relevanz für den Anwendungsfall.
+
+## Zusätzliche Überprüfung (iterativ, begrenzt)
+
+Nach dem ersten Entwurf eines Domänenmoduls kann folgende Rückfrage erfolgen:
+"Möchtest du eine vertiefte Recherche durchführen, um Spezialfälle oder seltene Ausnahmen abzudecken?"
+
+Wenn der Nutzer zustimmt:
+
+- zweite, fokussierte Rechercheschleife starten,
+- Randfälle/Ausnahmen integrieren.
+
+Standardgrenze:
+
+- maximal 2 Vertiefungsiterationen.
+- weitere Iterationen nur mit explizitem Opt-in des Nutzers.
+
+Ziel ist es, Domänentiefe und Robustheit zu steigern, ohne Endlosschleifen oder unnötige Komplexität zu erzeugen.
+
+## Ausgabeempfehlung
+
+- Block A: finaler Basisprompt mit aktivierten Modulen (kopierbar).
+- Block B: kurze Modulnotiz (aktivierte Module, fehlende Module, Annahmen).
