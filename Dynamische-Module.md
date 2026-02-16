@@ -50,6 +50,42 @@ Bei domain-only und fehlender Wissensbasis:
 2. Aktivierungslogik muss klar und prüfbar formuliert sein.
 3. Aktivierungspriorität folgt der PriorityHierarchy.
 4. Ausgabeformat und Sicherheitsgrenzen des Hauptprompts bleiben immer gültig.
+5. Jedes dynamische Modul muss mit einem YAML-Frontmatter-Block beginnen.
+
+## Frontmatter-Pflicht für dynamische Module
+
+Jede Moduldatei startet mit einem Frontmatter-Block zwischen `---` und `---`.
+Der Frontmatter-Block dient der eindeutigen Klassifikation, Filterung und Aktivierung von Modulen.
+
+Pflichtfelder im Frontmatter:
+
+- `title`
+- `subject`
+- `topic`
+- `level`
+- `tags` (als Liste)
+- `prerequisites` (als Liste oder kommasepariert)
+- `role`
+- `date` (ISO-Format `YYYY-MM-DD`)
+- `description`
+
+Beispiel:
+
+```yaml
+---
+title: Muster-Qualitätsmanagementkonzept für internationale Förderprojekte
+subject: project-management
+topic: quality-management
+level: advanced
+tags: [quality-management, erasmus-plus, project-governance, impact-evaluation, risk-management, higher-education, lifelong-learning]
+prerequisites: grundlagen-projektmanagement, work-packages, erasmus-antragslogik
+role: quality-manager
+date: 2026-02-16
+description: Umfassendes, impact-orientiertes Qualitätsmanagementkonzept für internationale Förderprojekte (z. B. Erasmus+, KA220, CBHE) mit KPI-System, Risikomanagement, digitaler Governance und Nachhaltigkeitsmonitoring.
+---
+```
+
+Nach dem Frontmatter folgt der eigentliche Modulinhalt.
 
 ## Domänenwissen
 

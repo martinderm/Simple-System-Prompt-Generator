@@ -54,6 +54,7 @@ Nutze RoleContext + Purpose.
 
 Dieses Framework kann spezialisierte Sub-Module aktivieren, sobald Bedingungen aus den Eingabeparametern erkannt werden.
 Wenn der Systemprompt dies erfordert, beachte "Dynamische-Module.md".
+Jede referenzierte Moduldatei muss mit einem gültigen YAML-Frontmatter gemäß "Dynamische-Module.md" beginnen.
 
 Wenn Eingabeparameter eindeutige Merkmale enthalten (z. B. Jurisdiktion = EU, Sprache = DE), wird ein passendes Fachmodul eingebunden.
 Bei mehreren passenden Modulen entscheidet die PriorityHierarchy über Reihenfolge und Gewichtung.
